@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Name - Profile</title>
+  <title>Vishwa Teja Neti - Profile</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -15,19 +15,30 @@
     <h1>Vishwa Teja Neti</h1>
     <img class="headshot" src="your-image.jpg" alt="Your Headshot">
     <p><strong>Email:</strong> <span id="email">netiv1@udayton.edu</span> <button onclick="toggleEmail()">Show/Hide</button></p>
-    <p><strong>Education:</strong> Dayton University, Major: Computer Science</p>
-    <p><strong>Skills:</strong> Full Stack Java Developmentetc.</p>
+    <p><strong>Education:</strong> University of Dayton, Major: Computer Science</p>
+    <p><strong>Skills:</strong> Full Stack Java Development, etc.</p>
     <p><strong>Experience:</strong> Job or project experience summary</p>
     <p><a href="waph.html">Learn about Web Application Programming and Hacking</a></p>
+
     <div id="welcomeMessage"></div>
+    <div><strong>Digital Clock:</strong> <span id="digitalClock"></span></div>
+    <div><strong>Random Joke:</strong> <p id="jokeContainer">Loading joke...</p></div>
+    <div><strong>Comic from XKCD:</strong><br><img id="comic" src="" alt="Loading comic..." style="max-width:100%;"></div>
+    <p><em>Disclaimer: The above joke and comic content are generated from public APIs. We are not responsible for external content.</em></p>
+
+    <!-- Flag Counter -->
+    <a href="https://info.flagcounter.com/teXT"><img src="https://s01.flagcounter.com/count2/teXT/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
   </div>
 
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
+    // Email toggle
     function toggleEmail() {
       $('#email').toggle();
     }
 
+    // Welcome Message with Cookie
     const lastVisit = document.cookie.replace(/(?:(?:^|.*;\s*)visit\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     const now = new Date().toLocaleString();
     if (!lastVisit) {
@@ -37,6 +48,32 @@
       document.getElementById("welcomeMessage").innerText = `Welcome back! Your last visit was ${lastVisit}`;
       document.cookie = `visit=${now}`;
     }
+
+    // Digital Clock
+    function showClock() {
+      const now = new Date();
+      document.getElementById("digitalClock").innerText = now.toLocaleTimeString();
+    }
+    setInterval(showClock, 1000);
+    showClock();
+
+    // Joke API
+    function fetchJoke() {
+      fetch('https://v2.jokeapi.dev/joke/Any?type=single')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('jokeContainer').innerText = data.joke;
+        });
+    }
+    fetchJoke();
+    setInterval(fetchJoke, 60000); // every minute
+
+    // XKCD Comic
+    fetch('https://xkcd.com/info.0.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('comic').src = data.img;
+      });
   </script>
 </body>
 </html>
