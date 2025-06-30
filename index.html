@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Name - Profile</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { padding: 20px; }
+    img.headshot { width: 150px; height: 150px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vishwa Teja Neti</h1>
+    <img class="headshot" src="your-image.jpg" alt="Your Headshot">
+    <p><strong>Email:</strong> <span id="email">netiv1@udayton.edu</span> <button onclick="toggleEmail()">Show/Hide</button></p>
+    <p><strong>Education:</strong> Dayton University, Major: Computer Science</p>
+    <p><strong>Skills:</strong> Full Stack Java Developmentetc.</p>
+    <p><strong>Experience:</strong> Job or project experience summary</p>
+    <p><a href="waph.html">Learn about Web Application Programming and Hacking</a></p>
+    <div id="welcomeMessage"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function toggleEmail() {
+      $('#email').toggle();
+    }
+
+    const lastVisit = document.cookie.replace(/(?:(?:^|.*;\s*)visit\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    const now = new Date().toLocaleString();
+    if (!lastVisit) {
+      document.cookie = `visit=${now}`;
+      document.getElementById("welcomeMessage").innerText = "Welcome to my homepage for the first time!";
+    } else {
+      document.getElementById("welcomeMessage").innerText = `Welcome back! Your last visit was ${lastVisit}`;
+      document.cookie = `visit=${now}`;
+    }
+  </script>
+</body>
+</html>
